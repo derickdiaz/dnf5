@@ -665,6 +665,12 @@ Transaction::TransactionRunResult Transaction::Impl::_run(
     } else {
         db_transaction.set_user_id(get_login_uid());
     }
+
+    auto user_info = getpwuid(*user_id);
+    if (user_info != NULL) {
+        db_transaction.set_username(std::string(user_info.pw_name));
+    }
+
     //
     // TODO(jrohel): nevra of running dnf5?
     //db_transaction.add_runtime_package("dnf5");

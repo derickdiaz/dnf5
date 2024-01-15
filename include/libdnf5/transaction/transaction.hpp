@@ -30,6 +30,8 @@ along with libdnf.  If not, see <https://www.gnu.org/licenses/>.
 #include "libdnf5/base/transaction_module.hpp"
 #include "libdnf5/base/transaction_package.hpp"
 
+#include <pwd.h>
+
 #include <memory>
 #include <set>
 #include <string>
@@ -124,6 +126,9 @@ public:
     // @replaces libdnf:transaction/Transaction.hpp:method:Transaction.get_user_id()
     uint32_t get_user_id() const noexcept { return user_id; }
 
+    /// Get the username of the user that started the transaction
+    std::string get_username() const noexcept { return username; }
+
     /// Get the description of the transaction (e.g. the CLI command that was executed)
     ///
     // @replaces libdnf:transaction/Transaction.hpp:method:Transaction.get_cmdline()
@@ -207,6 +212,9 @@ private:
     // @replaces libdnf:transaction/private/Transaction.hpp:method:Transaction.setUserId(uint32_t value)
     void set_user_id(uint32_t value) { user_id = value; }
 
+    /// Set the username of a user that started the transaction
+    void set_username(std::string value) { username = value; }
+
     /// Set $releasever variable value that was used during the transaction
     ///
     // @replaces libdnf:transaction/private/Transaction.hpp:method:Transaction.setReleasever(const std::string & value)
@@ -283,6 +291,7 @@ private:
     // TODO(dmach): move to a new "vars" table?
     std::string releasever;
     uint32_t user_id = 0;
+    std::string username;
     std::string description;
     std::string comment;
     State state = State::STARTED;

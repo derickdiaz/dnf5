@@ -33,7 +33,12 @@ void print_transaction_info(libdnf5::transaction::Transaction & transaction) {
     info.add_line("End time", libdnf5::utils::string::format_epoch(transaction.get_dt_end()));
     info.add_line("End rpmdb", transaction.get_rpmdb_version_end());
 
-    info.add_line("User", transaction.get_user_id());
+    if (transaction.get_username() != NULL) {
+        info.add_line("User", transaction.get_username())
+    } else {
+        info.add_line("User", transaction.get_user_id());
+    }
+
     info.add_line("Status", libdnf5::transaction::transaction_state_to_string(transaction.get_state()));
     info.add_line("Releasever", transaction.get_releasever());
     info.add_line("Description", transaction.get_description());
