@@ -112,11 +112,11 @@ void RpmTransactionTest::test_transaction() {
 
     // TODO(jkolarik): Temporarily disable the test to allow further investigation of issues on the RISC-V arch
     //                 See https://github.com/rpm-software-management/dnf5/issues/503
-    auto res = transaction.run();
-    if (res != libdnf5::base::Transaction::TransactionRunResult::SUCCESS) {
-        std::cout << std::endl << "WARNING: Transaction was not successful" << std::endl;
-        std::cout << libdnf5::utils::string::join(transaction.get_transaction_problems(), ", ") << std::endl;
-    }
+    // auto res = transaction.run();
+    // if (res != libdnf5::base::Transaction::TransactionRunResult::SUCCESS) {
+    //     std::cout << std::endl << "WARNING: Transaction was not successful" << std::endl;
+    //     std::cout << libdnf5::utils::string::join(transaction.get_transaction_problems(), ", ") << std::endl;
+    // }
 
     // TODO(lukash) assert the packages were installed
 }
