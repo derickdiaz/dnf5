@@ -33,7 +33,7 @@ void print_transaction_info(libdnf5::transaction::Transaction & transaction) {
     info.add_line("End time", libdnf5::utils::string::format_epoch(transaction.get_dt_end()));
     info.add_line("End rpmdb", transaction.get_rpmdb_version_end());
 
-    if (transaction.get_username() != NULL) {
+    if (!transaction.get_username().empty()) {
         info.add_line("User", transaction.get_username());
     } else {
         info.add_line("User", transaction.get_user_id());
