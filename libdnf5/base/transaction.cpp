@@ -668,7 +668,7 @@ Transaction::TransactionRunResult Transaction::Impl::_run(
 
     auto user_info = getpwuid(*user_id);
     if (user_info != NULL) {
-        db_transaction.set_username(std::string(user_info.pw_name));
+        db_transaction.set_username(std::string(user_info->pw_name));
     }
 
     //
