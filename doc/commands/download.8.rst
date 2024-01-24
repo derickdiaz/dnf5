@@ -47,6 +47,11 @@ Options
 ``--destdir=<path>``
     Set directory used for downloading packages to. Default location is to the current working directory.
 
+``--url``
+    | Prints the list of urls where the rpms can be downloaded instead of downloading.
+
+``--urlprotocol``
+    | To be used together with ``--url``, it filters out the urls to the specified url protocols: {http, https, ftp}
 
 Examples
 ========
@@ -62,6 +67,9 @@ Examples
 
 ``dnf5 download --destdir /tmp/my_packages maven-compiler-plugin``
     | Download the ``maven-compiler-plugin`` package to ``/tmp/my_packages`` directory.
+
+``dnf5 download --url --urlprotocol http python``
+    | List the http url to download the python package
 
 See Also
 ========

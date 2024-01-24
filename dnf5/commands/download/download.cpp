@@ -84,11 +84,11 @@ void DownloadCommand::set_argument_parser() {
 
     auto url = parser.add_new_named_arg("url");
     url->set_long_name("url");
-    url->set_description("Print the list of urls where the rpms can be downloaded instead of downloading");
+    url->set_description("Print a url where the rpms can be downloaded instead of downloading");
     url->set_const_value("true");
     url->link_value(url_option);
 
-    urlprotocol_valid_options = {"http", "https", "rsync", "ftp"};
+    urlprotocol_valid_options = {"http", "https", "ftp"};
     urlprotocol_option = {};
     auto urlprotocol = parser.add_new_named_arg("urlprotocol");
     urlprotocol->set_long_name("urlprotocol");
@@ -191,7 +191,9 @@ void DownloadCommand::run() {
             libdnf_assert(!urls.empty(), "Failed to get mirror for package: \"{}\"", pkg.get_name());
             auto valid_url = std::find_if(urls.begin(), urls.end(), [this](std::string url) {
                 for (auto protocol : urlprotocol_option) {
-                    if (url.starts_with(protocol)) {
+                    // Ensure the urls matches the protocol specified by concating the colon.
+                    // i.e https: or http: not httpnextgen://
+                    if (url.starts_with(protocol + ":")) {
                         return true;
                     }
                 }
